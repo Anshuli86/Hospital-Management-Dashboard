@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Entry</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #bcd7f1;
+            text-align: center;
+            padding: 60px;
+        }
+        .container {
+            background: #ffffff;
+            width: 300px;
+            margin: auto;
+            padding: 50px;
+            border: 2px solid rgb(211, 167, 102);
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 1px;
+            border: 1px solid #000000;
+            border-radius: 4px;
+        }
+        button {
+            background: #907e47;
+            color: rgb(251, 251, 251);
+            cursor: pointer;
+        }
+        button:hover {
+            background: #a99127;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background: #fff;
+        }
+        table, th, td {
+            border: 1px solid black;
+            padding: 10px;
+        }
+        th {
+            background: #907e47;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h2>Today's Patient Entry Form</h2>
+    <div class="container">
+        <form id="patientForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" required>
+
+            <label for="age">Age:</label>
+            <input type="number" id="age" required>
+
+            <label for="gender">Gender:</label>
+            <select id="gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+
+            <label for="doctor">Assign Doctor:</label>
+            <select id="doctor">
+                <option value="Dr. Smita - Cardiologist">Dr. Smita - Cardiologist</option>
+                <option value="Dr. Ram - Gynecologist">Dr. Ram - Gynecologist</option>
+                <option value="Dr. Shruti - Neurologist">Dr. Shruti - Neurologist</option>
+                <option value="Dr. Rutuja - Dermatologist">Dr. Rutuja - Dermatologist</option>
+                <option value="Dr. Rajveer - General">Dr. Rajveer - General</option>
+            </select>
+
+            <button type="button" onclick="savePatient()">Save Patient</button>
+        </form>
+        <p id="message" style="color: rgb(87, 156, 202);"></p>
+    </div>
+
+    <h2>Patient details</h2>
+    <table id="patientTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Gender</th>
+                <th>Doctor</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <script>
+        let count = 0;
+    
+        window.onload = function () {
+            let patients = JSON.parse(localStorage.getItem("patients")) || [];
+            count = patients.length;
+            patients.forEach(patient => addPatientToTable(patient));
+        };
+    
+        function savePatient() {
+            if (count >= 6) {
+                alert("Only 6 patients can be entered.");
+                return;
+            }
+    
+            let name = document.getElementById('name').value;
+            let age = document.getElementById('age').value;
+            let gender = document.getElementById('gender').value;
+            let doctor = document.getElementById('doctor').value;
+    
+            if (!name || !age) {
+                alert("Fill all fields.");
+                return;
+            }
+    
+            let patient = { name, age, gender, doctor };
+            let patients = JSON.parse(localStorage.getItem("patients")) || [];
+            patients.push(patient);
+            localStorage.setItem("patients", JSON.stringify(patients));
+    
+            count++;
+            document.getElementById('message').textContent = `Patient ${count} saved!`;
+            addPatientToTable(patient);
+            document.getElementById('patientForm').reset();
+        }
+    
+        function addPatientToTable(patient) {
+            let row = document.getElementById('patientTable').insertRow();
+            row.innerHTML = `<td>${patient.name}</td><td>${patient.age}</td><td>${patient.gender}</td><td>${patient.doctor}</td>`;
+        }
+    </script>
+    
+</body>
+</html>

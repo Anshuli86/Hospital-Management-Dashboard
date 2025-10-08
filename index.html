@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medical Admin Dashboard</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      display: flex;
+    }
+
+    .sidebar {
+      background: #343a40;
+      color: #fff;
+      width: 250px;
+      height: 1740px;
+      position: fixed;
+      padding: 16px 0;
+    }
+
+    .sidebar h1, .sidebar a {
+      color: white;
+      text-decoration: none;
+      margin-left: 35px;
+      margin-top: 25px;
+      padding: 10px 16px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .sidebar a:hover {
+      background: #495057;
+    }
+
+    .main-content {
+      margin-left: 250px;
+      flex: 1;
+      padding: 16px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #ffffff;
+      border: 5px solid rgb(202, 156, 103);
+      padding: 16px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 11px;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 3px solid rgb(239, 234, 220);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 15px;
+      border-radius: 5px;
+      flex: 1;
+      min-width: 250px;
+    }
+
+    .container :hover {
+      background: #e4fbfe;
+    }
+
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+      border: 2px solid rgb(161, 143, 108);
+    }
+
+    table th, table td {
+      border: 1px solid #000000;
+      padding: 8px;
+      text-align: center;
+    }
+
+    table th {
+      background-color: #4c5157;
+      color: white;
+    }
+    .button {
+      background: #56aadb;
+      color: #fff;
+      padding: 8px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background: #2c70a1;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 100%;
+        position: relative;
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+
+      .container {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 8px;
+      }
+
+      header {
+        flex-direction: column;
+      }
+
+      .button {
+        padding: 6px 12px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+    <!-- cont 1 sidebar -->
+  <div class="sidebar">
+    <h1>Healthify</h1>
+    <a href="#" ><span class="material-icons-outlined">dashboard</span> Dashboard</a>
+    <a href="doctor.html" target="_blank"><span class="material-icons-outlined">person</span> Doctor</a>
+    <a href="patient.html" target="_blank"><span class="material-icons-outlined">people</span> Patient</a>
+    <a href="services.html" target="_blank"><span class="material-icons-outlined">calendar_today</span> Services</a>
+    <a href="pharmacy.html" target="_blank"><span class="material-icons-outlined">local_pharmacy</span> Pharmacy</a>
+    <a href="#"><span class="material-icons-outlined">settings</span> Settings</a>
+    <a href="#" style="color: #ff6b6b;"><span class="material-icons-outlined">logout</span> Logout</a>
+  </div>
+   <!-- cont 2 main -->
+  <div class="main-content">
+    <div id="content"></div>
+
+    <header>
+      <h1>Medical Admin Dashboard</h1>
+      <button class="button" onclick="toggleCalendar()">Calendar</button>
+<!-- cont 3 cal -->
+    <div id="calendar" style="display: none; margin: 16px 0;">
+      <input type="date" style="padding: 7px; border: 1px solid #000000; border-radius: 5px;background-color: #3c8dbc;color: white;">
+    </div>
+</header>
+<!-- cont 4 card 1 and 2 -->
+    <div class="container">
+      
+        <!-- cont 5 -->
+        <div class="card">
+          <span class="material-icons-outlined" style="font-size: 40px; color: #56aadb;">medical_services</span>
+          <h3><a href="doctor.html" target="_blank" style="text-decoration: none; color: inherit;">DOCTORS</a></h3>
+          <p>52 </p> 
+          <h6>Doctors this week</h6>
+        </div>
+        <!-- cont 6 -->
+        <div class="card">
+          <span class="material-icons-outlined" style="font-size: 40px; color: #56aadb;">people_alt</span>
+          <h3><a href="patient.html" target="_blank" style="text-decoration: none; color: inherit;">PATIENTS</a></h3>
+          <p>1000</p>
+          <h6>Patients admitted</h6>
+        </div>
+    </div>
+<!-- cont 7 card 3 and 4 -->
+    <div class="container">
+        <!-- cont 8 -->
+        <div class="card">
+          <span class="material-icons-outlined" style="font-size: 40px; color: #56aadb;">local_pharmacy</span>
+          <h3><a href="pharmacy.html" target="_blank" style="text-decoration: none; color: inherit;">PHARMACIES</a></h3>
+          <p>22</p>
+          <h6>medicines reserved</h6>
+        </div>
+        <!-- cont 9 -->
+        <div class="card">
+          <span class="material-icons-outlined" style="font-size: 40px; color: #56aadb;">supervisor_account</span>
+          <h3>STAFF</h3>
+          <p>2000</p>
+          <h6>Staff present</h6>
+        </div>
+      </div>
+<!-- cont 10 stat -->
+    <div class="container">
+        <!-- cont 11 bar -->
+      <div class="card">
+        <h3>Statistics</h3>
+        <canvas id="patientsChart"></canvas>
+      </div>
+       <!-- cont 12 pie -->
+      <div class="card">
+        <h3>Determinants of Health</h3>
+        <canvas id="specialtyPieChart"></canvas>
+      </div>
+    </div>
+<!-- cont 13 tab -->
+    <div class="card">
+      <h3>Medical Team Directory</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Speciality</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Dr. Smita</td>
+            <td>Doctor</td>
+            <td>Cardiologist</td>
+            <td><button class="button" onclick="alert('The doctor will review the report and take appropriate action based on the findings')">View</button></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Nurse Joy</td>
+            <td>Nurse</td>
+            <td>Emergency Care</td>
+            <td><button class="button" onclick="alert('Take necessary action accordingly')">View</button></td>
+          </tr>
+          <td>3</td>
+            <td>Dr. Ram</td>
+            <td>Doctor</td>
+            <td>Gynecologist</td>
+            <td><button class="button" onclick="alert('The doctor will review the report and take appropriate action based on the findings')">View</button></td>
+          </tr>
+          <tr>
+           <td>4</td>
+           <td>Nurse Siya</td>
+           <td>Nurse</td>
+           <td>Pediatric nursing</td>
+           <td><button class="button" onclick="alert('Take necessary action accordingly')">View</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    function loadPage(page) {
+    fetch(page)
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('content').innerHTML = data;
+      })
+      .catch(error => console.error('Error loading page:', error));
+  }
+
+    function toggleCalendar() {
+      const calendar = document.getElementById('calendar');
+      calendar.style.display = calendar.style.display === 'none' ? 'block' : 'none';
+    }
+
+    new Chart(document.getElementById('patientsChart'), {
+      type: 'bar',
+      data: {
+        labels: ['Cardiology', 'Neurologist', 'Dermatologist', 'Gynecologist', 'General'],
+        datasets: [{
+          label: 'Patients Treated',
+          data: [120, 90, 60, 80, 150],
+          backgroundColor: ['teal', 'tan', 'olive', 'gold', 'coral']
+        }]
+      }
+    });
+
+    new Chart(document.getElementById('specialtyPieChart'), {
+      type: 'pie',
+      data: {
+        labels: ['Genetics', 'Social Circumstances', 'Individual Behaviors', 'Environment Exposures', 'Clinical Care'],
+        datasets: [{
+          data: [30, 15, 10, 18, 27],
+          backgroundColor: ['teal', 'tan', 'olive', 'gold', 'coral']
+        }]
+      }
+    });
+  </script>
+  
+
+</body>
+
+</html>
